@@ -37,9 +37,9 @@ def draw_ROC(data_type, P, N):
 	plt.show()
 	
 
-softmax_original = np.loadtxt("softmax_matrix_original.txt")
-softmax_gaussian = np.loadtxt("softmax_matrix_gaussian2.txt")
-softmax_flipped = np.loadtxt("softmax_matrix_flipped.txt")
+softmax_original = np.loadtxt("drive/zavrsni/softmax_matrix_original.txt")
+softmax_gaussian = np.loadtxt("drive/zavrsni/softmax_matrix_gaussian2.txt")
+softmax_flipped = np.loadtxt("drive/zavrsni/softmax_matrix_flipped.txt")
 
 get_correct_and_wrong_means("Original", softmax_original, np.loadtxt("test_labels_original.txt"))
 print()

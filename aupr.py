@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 def draw_PR_curve(data_type, in_out, P, N):
 	assert(P.shape == N.shape)
 
+	total = P.shape[0]
 	P = [[np.max(x) if in_out=="in" else -np.max(x), True] for x in P]
 	N = [[np.max(x) if in_out=="in" else -np.max(x), False] for x in N]
 	
@@ -36,12 +37,9 @@ def draw_PR_curve(data_type, in_out, P, N):
 	plt.show()
 	
 
-softmax_original = np.loadtxt("softmax_matrix_original.txt")
-softmax_gaussian = np.loadtxt("softmax_matrix_gaussian2.txt")
-softmax_flipped = np.loadtxt("softmax_matrix_flipped.txt")
-labels = np.loadtxt("test_labels_original.txt")
-
-total = len(labels)
+softmax_original = np.loadtxt("drive/zavrsni/softmax_matrix_original.txt")
+softmax_gaussian = np.loadtxt("drive/zavrsni/softmax_matrix_gaussian2.txt")
+softmax_flipped = np.loadtxt("drive/zavrsni/softmax_matrix_flipped.txt")
 
 #draw_PR_curve("Gaussovog šuma", "in", softmax_original, softmax_gaussian)
 #draw_PR_curve("obrnutih slika", "in", softmax_original, softmax_flipped)
