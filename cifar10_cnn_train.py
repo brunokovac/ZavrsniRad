@@ -30,15 +30,18 @@ def train(train_data, train_labels, eval_data, eval_labels):
 				
 				_, loss1 = sess.run( [optimizer, loss], feed_dict = {X : epoch_data, Y_ : epoch_labels} )
 				
-			print("Epoch", epoch, ":", sess.run( loss, feed_dict = {X : train_data, Y_ : train_labels} ))
+			print("***** Epoch", epoch, "*****")
+			print("Train loss:", sess.run( loss, feed_dict = {X : train_data, Y_ : train_labels} ))
+			print("Valid loss:", sess.run( loss, feed_dict = {X : eval_data, Y_ : eval_labels} ))
 			correct = tf.equal( tf.transpose(tf.cast(Y_, tf.int64)), tf.argmax(logits, 1) )
 			accuracy_tf = tf.reduce_mean(tf.cast(correct, "float"))
-			accuracy = sess.run(accuracy_tf, feed_dict = {X : eval_data, Y_ : eval_labels})
-			print("Accuracy:", accuracy)
+			print("Train accuracy:", sess.run(accuracy_tf, feed_dict = {X : train_data, Y_ : train_labels}))
+			eval_accuracy = sess.run(accuracy_tf, feed_dict = {X : eval_data, Y_ : eval_labels})
+			print("Valid accuracy:", eval_accuracy)
 			print("*"*50)
 			
-			if accuracy > best_accuracy:
-				best_accuracy = accuracy
+			if eval_accuracy > best_accuracy:
+				best_accuracy = eval_accuracy
 				saver = tf.train.Saver()
 				saver.save(sess, "drive/zavrsni/model")
 		

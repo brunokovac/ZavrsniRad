@@ -22,8 +22,8 @@ def test(test_data, test_labels):
 		confusion_matrix_tf = tf.confusion_matrix(labels = Y_, predictions = tf.argmax(logits, 1))
 		softmax_matrix, confusion_matrix = sess.run([softmax_matrix_tf, confusion_matrix_tf], feed_dict = {X : test_data, Y_ : test_labels})
 		
-		np.savetxt("drive/zavrsni/test_labels_gaussian2.txt", test_labels)
-		np.savetxt("drive/zavrsni/softmax_matrix_gaussian2.txt", softmax_matrix)
+		np.savetxt("drive/zavrsni/test_labels_flipped.txt", test_labels)
+		np.savetxt("drive/zavrsni/softmax_matrix_flipped.txt", softmax_matrix)
 		
 		print("Confusion matrix:\n", confusion_matrix)
 		
@@ -46,8 +46,21 @@ if __name__ == "__main__":
 	train_data = cifar_train[0] / 255
 	train_labels = np.asarray(cifar_train[1], dtype=np.int32)
 	
+	test_data = cifar_test[0] / 255
+	test_labels = np.asarray(cifar_test[1], dtype=np.int32)
+	
+	save_image(test_data[10], "drive/zavrsni/original.png")
+	
+	sess = tf.InteractiveSession()
+	from math import pi
+	test_data = tf.contrib.image.rotate(test_data, pi).eval()
+	sess.close()
+	
+	save_image(test_data[10], "drive/zavrsni/flipped.png")
+	
 	test_data = np.random.normal(scale=0.5, size=cifar_test[0].shape).astype("float32")
-	test_labels =  np.zeros(shape=test_data.shape[0], dtype=np.int32)
+	
+	save_image(test_data[10], "drive/zavrsni/gaussian.png")
 	
 	data_mean = train_data.mean((0, 1, 2))
 	data_std = train_data.std((0, 1, 2))

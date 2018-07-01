@@ -23,7 +23,7 @@ def test(test_data, test_labels):
 		softmax_matrix, confusion_matrix = sess.run([softmax_matrix_tf, confusion_matrix_tf], feed_dict = {X : test_data, Y_ : test_labels})
 		
 		np.savetxt("drive/zavrsni/test_labels_gaussian2.txt", test_labels)
-		np.savetxt("drive/zavrsni/softmax_matrix_gaussian2.txt", softmax_matrix)
+		np.savetxt("drive/zavrsni/softmax_matrix_gaussian2.txt", sess.run(logits, feed_dict = {X : test_data, Y_ : test_labels}))
 		
 		print("Confusion matrix:\n", confusion_matrix)
 		
